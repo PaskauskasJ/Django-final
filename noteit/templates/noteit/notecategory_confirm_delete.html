@@ -1,0 +1,18 @@
+{% extends 'noteit/base.html' %} {% load tailwind_filters %} {% block content %}
+<div>
+  <h1 class="text-2xl my-4">Delete note</h1>
+  <form method="post">
+    <p class="text-lg text-gray-800 my-2">{{object.categor}}</p>
+    <p class="text-lg text-gray-800 my-2">{{object.assigned_to}}</p>
+    <p class="text-lg text-gray-800 my-2">{{object.created_at}}</p>
+    <p class="text-lg text-gray-800 my-2">{{object.updated_at}}</p>
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    {% csrf_token %} {{ form|crispy }}
+    <input
+      class="px-8 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 hover:cursor-pointer"
+      type="submit"
+      value="Confirm"
+    />
+  </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends 'noteit/base.html' %} {% block content %}
+
+<div class="max-w-7xl h-full overflow-hidden mx-auto py-6 sm:px-6 lg:px-8">
+  <div class="bg-white h-full overflow-auto shadow-sm sm:rounded-lg">
+    <div class="p-6 bg-white border-b border-gray-200">
+      <h1 class="text-3xl font-bold text-center">{{object.name}}</h1>
+      <div class="p-6 h-full w-full flex flex-col justify-between">
+        <div class="title">
+          <div class="h-full py-8 flex">
+            {% if note.note_img %}
+            <img
+              src="{{ note.note_img.url }}"
+              alt="{{ note.name }} image"
+              style="width: 400px; max-height: 500px"
+            />
+            {% endif %} {% if object.description %}
+            <p class="text-lg text-gray-800 pl-2">
+              {{object.description|linebreaks}}
+            </p>
+            {% else %}
+            <p class="text-lg text-gray-800 pl-2">No description</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="flex">
+        <div class="w-1/4">
+          <label for="category" class="text-gray-500 text-xs">Category:</label>
+
+          <p id="category" class="text-gray-700 font-bold">{{note.category}}</p>
+        </div>
+
+        <div class="w-1/4">
+          <label for="assigned_to" class="text-gray-500 text-xs"
+            >Note created by:</label
+          >
+
+          <p id="assigned_to" class="text-gray-700 font-bold">
+            {{note.assigned_to}}
+          </p>
+        </div>
+        <div class="w-1/4">
+          <label for="created_at" class="text-gray-500 text-xs"
+            >Note created at:</label
+          >
+
+          <p id="created_at" class="text-gray-700 font-bold">
+            {{note.created_at|date:"d M Y" }}
+          </p>
+        </div>
+
+        <div class="w-1/4">
+          <label for="updated_at" class="text-gray-500 text-xs"
+            >Last update:</label
+          >
+
+          <p id="updated_at" class="text-gray-700 font-bold">
+            {{note.updated_at|date:"d M Y H:i" }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

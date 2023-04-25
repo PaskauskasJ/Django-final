@@ -1,0 +1,100 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'noteit/css/styles.css' %}"
+    />
+  </head>
+  <body class="bg-gradient-to-r from-sky-500 to-indigo-500">
+    <div class="w-full h-screen max-w-7xl mx-auto pt-6">
+      <div
+        class="flex flex-col bg-white max-w-screen-xl p-5 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8 border-b rounded-xl mb-8"
+      >
+        <div
+          class="flex flex-row bg-white items-center justify-between lg:justify-start"
+        >
+          <a
+            href="{% url 'note-list' %}"
+            class="text-3xl font-bold tracking-tighter text-blue-600 transition duration-500 ease-in-out transform tracking-relaxed lg:pr-8"
+          >
+            NoteIt APP
+          </a>
+        </div>
+
+        <nav
+          class="flex-col items-center flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row lg:pl-2"
+        >
+          <div class="inline-flex items-center gap-2 list-none lg:ml-auto">
+            {% if user.is_authenticated %} {% if request.user.is_superuser %}
+
+            <a
+              href="{% url 'admin:index' %}"
+              class="w-52 items-center block px-10 py-2.5 text-base font-medium text-center text-blue-600 hover:text-white hover:bg-blue-600 transition duration-500 ease-in-out transform border-2 hover:border-blue-600 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+            >
+              Admin
+            </a>
+
+            {% endif %}
+
+            <a
+              href="{% url 'notecategory-create' %}"
+              class="w-52 items-center block px-10 py-2.5 text-base font-medium text-center text-blue-600 hover:text-white hover:bg-blue-600 transition duration-500 ease-in-out transform border-2 hover:border-blue-600 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+            >
+              Create category
+            </a>
+
+            <a
+              href="{% url 'note-create' %}"
+              class="w-52 items-center block px-10 py-2.5 text-base font-medium text-center text-blue-600 hover:text-white hover:bg-blue-600 transition duration-500 ease-in-out transform border-2 hover:border-blue-600 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+            >
+              Create note
+            </a>
+
+            <form action="{% url 'account_logout' %}" method="POST">
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="w-52 items-center block px-10 py-2.5 text-base font-medium text-center text-blue-600 hover:text-white hover:bg-blue-600 transition duration-500 ease-in-out transform border-2 hover:border-blue-600 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              >
+                Logout
+              </button>
+            </form>
+            {% else %}
+            <a href="{% url 'account_login' %}">
+              <button
+                class="w-52 items-center block px-10 py-2.5 text-base font-medium text-center text-blue-600 hover:text-white hover:bg-blue-600 transition duration-500 ease-in-out transform border-2 hover:border-blue-600 border-white shadow-md rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+              >
+                Sign in
+              </button>
+            </a>
+            <a href="{% url 'account_signup' %}">
+              <button
+                class="w-52 items-center block px-10 py-3 text-base font-medium text-center text-white transition duration-500 ease-in-out transform bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                Sign up
+              </button>
+            </a>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
+      <div class="h-5/6">
+        <div
+          class="overflow-hidden h-full p-5 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8 border-b rounded-xl"
+          style="background-image: url('/media/img/background.jpg')"
+        >
+          {% block content %} {% endblock content %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
